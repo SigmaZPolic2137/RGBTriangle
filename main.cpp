@@ -151,28 +151,14 @@ void SDL_AppQuit(void * App, SDL_AppResult Result) {
 	AppState * State = static_cast <AppState *> (App);
 
 	if (State) {
-		if (State -> Window) {
-			SDL_HideWindow(State -> Window);
-		}
+		if (State -> Window) SDL_HideWindow(State -> Window);
 
-		if (State -> Pipeline) {
-			SDL_ReleaseGPUGraphicsPipeline(State -> GPUDevice, State -> Pipeline);
-		}
-		if (State -> VertexBuffer) {
-			SDL_ReleaseGPUBuffer(State -> GPUDevice, State -> VertexBuffer);
-		}
+		if (State -> Pipeline) SDL_ReleaseGPUGraphicsPipeline(State -> GPUDevice, State -> Pipeline);
+		if (State -> VertexBuffer) SDL_ReleaseGPUBuffer(State -> GPUDevice, State -> VertexBuffer);
 
-		if (State -> Window) {
-			SDL_ReleaseWindowFromGPUDevice(State -> GPUDevice, State -> Window);
-		}
-
-		if (State -> GPUDevice) {
-			SDL_DestroyGPUDevice(State -> GPUDevice);
-		}
-
-		if (State -> Window) {
-			SDL_DestroyWindow(State -> Window);
-		}
+		if (State -> Window) SDL_ReleaseWindowFromGPUDevice(State -> GPUDevice, State -> Window);
+		if (State -> GPUDevice) SDL_DestroyGPUDevice(State -> GPUDevice);
+		if (State -> Window) SDL_DestroyWindow(State -> Window);
 
 		delete State;
 	}
